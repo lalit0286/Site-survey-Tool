@@ -1,0 +1,14 @@
+
+img{
+  width: 100px;
+  height: 50px;
+  object-fit: cover;
+  padding: 0.75rem;
+  
+}
+
+
+/* to Align yes and no checkbox Horizontally */
+.result{
+  align-items: center;
+}
