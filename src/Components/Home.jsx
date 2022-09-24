@@ -9,9 +9,10 @@ function Home() {
 
 
 
+
   const initialValue = {
     SiteName:"",
-    FloorNo: "",
+    floorNo: "",
     mrNameNumber: "",
     ceiMatype: "",
     ceiHeight: "",
@@ -26,7 +27,7 @@ function Home() {
   const [meetingRoom, setMeetingRoom] = useState(initialValue);
   const {
     SiteName,
-    FloorNo,
+    floorNo,
     mrNameNumber,
     ceiMatype,
     ceiHeight,
@@ -40,40 +41,38 @@ function Home() {
 
 // Function to Submit Form Data
 const handleSubmit= (e)=>{
-  const url ="http://127.0.0.1:8000/api/meetingRoom/new/"
+  const url =(`http://127.0.0.1:8000/api/meetingRoom/new/`)
   const finalmeetingRoom ={
   siteName:meetingRoom.SiteName,
-  FloorNo:meetingRoom.FloorNo,
+  floorNo:meetingRoom.floorNo,
   MrNameAndNo:meetingRoom.mrNameNumber,
-  furnitureImg:furImg,
-  ceilingImg:ceiImg,
+  // furnitureImg:furImg,
+  // ceilingImg:ceiImg,
   ceilingMatTyp:meetingRoom.ceiMatype,
   CeilingHeight:meetingRoom.ceiHeight,
   distanceFromAdjancent:meetingRoom.roomDim
 }
 const datas = new FormData();
-    datas.append("siteName",finalmeetingRoom.siteName);
-    datas.append("FloorNo", finalmeetingRoom.FloorNo);
-    datas.append("MrNameAndNo", finalmeetingRoom.MrNameAndNo);
-    datas.append("furnitureImg", finalmeetingRoom.furnitureImg);
-    datas.append("ceilingImg", finalmeetingRoom.ceilingImg);
-    datas.append("ceilingMatTyp", finalmeetingRoom.ceilingMatTyp);
-    datas.append("CeilingHeight", finalmeetingRoom.CeilingHeight);
-    datas.append("distanceFromAdjancent",finalmeetingRoom.distanceFromAdjancent);
-    console.log(finalmeetingRoom.siteName);
+    // datas.append("siteName",finalmeetingRoom.siteName);
+//     datas.append("floorNo", meetingRoom.floorNo);
+//     datas.append("MrNameAndNo", meetingRoom.mrNameNumber);
+    datas.append("furnitureImg",furImg);
+    datas.append("ceilingImg", ceiImg);
+//     datas.append("ceilingMatTyp", meetingRoom.ceiMatype);
+//     datas.append("CeilingHeight", meetingRoom.ceiHeight);
+//     datas.append("distanceFromAdjancent",meetingRoom.roomDim);
+//     console.log(meetingRoom.floorNo);
     console.log(datas);
 
 const meetingRoomOptions={
   Headers:{"content-type":"multipart/form-data"}
 }
-console.log(furImg,ceiImg);
-axios.post(url,datas,meetingRoomOptions).then((res)=>{
+axios.post(url,finalmeetingRoom,datas,meetingRoomOptions).then((res)=>{
   console.log(res);
 })
 .catch((err)=>{
   console.log("error while submitting", err);
 })
-console.log(datas);
 }
 
   const valueChange = (e) => {
@@ -285,8 +284,8 @@ console.log(datas);
                     id="outlined-basic"
                     label="Floor No."
                     onChange={(e) => valueChange(e)}
-                    name="FloorNo"
-                    value={FloorNo}
+                    name="floorNo"
+                    value={floorNo}
                   />
                 </Grid>
                 <Grid item xs={12}>
