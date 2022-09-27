@@ -19,8 +19,8 @@ function Home() {
     lenofPenLight:"",
     roomDim: "",
     radius:"",
-    hanDist:"",
-    penLigLoc: "",
+    hangDist:"",
+    penLigLocFromAdjWall: "",
     comment: "",
   };
   // Use State for for updation
@@ -33,9 +33,9 @@ function Home() {
     ceiHeight,
     lenofPenLight,
     radius,
-    hanDist,
+    hangDist,
     roomDim,
-    penLigLoc,
+    penLigLocFromAdjWall,
     comment,
   } = meetingRoom;
 
@@ -46,23 +46,32 @@ const handleSubmit= (e)=>{
   siteName:meetingRoom.SiteName,
   floorNo:meetingRoom.floorNo,
   MrNameAndNo:meetingRoom.mrNameNumber,
-  // furnitureImg:furImg,
-  // ceilingImg:ceiImg,
   ceilingMatTyp:meetingRoom.ceiMatype,
   CeilingHeight:meetingRoom.ceiHeight,
-  distanceFromAdjancent:meetingRoom.roomDim
+  lenofPenLight:meetingRoom.lenofPenLight,
+  radius:meetingRoom.radius,
+  hangDist:meetingRoom.hangDist,
+  roomDim:meetingRoom.roomDim,
+  distanceFromAdjancent:meetingRoom.penLigLocFromAdjWall,
+  comments:meetingRoom.comment
 }
+const imageData={
+  furnitureImg:furImg,
+  ceilingImg:ceiImg,
+}
+console.log(imageData);
 const datas = new FormData();
-    // datas.append("siteName",finalmeetingRoom.siteName);
-//     datas.append("floorNo", meetingRoom.floorNo);
-//     datas.append("MrNameAndNo", meetingRoom.mrNameNumber);
-    datas.append("furnitureImg",furImg);
-    datas.append("ceilingImg", ceiImg);
-//     datas.append("ceilingMatTyp", meetingRoom.ceiMatype);
-//     datas.append("CeilingHeight", meetingRoom.ceiHeight);
-//     datas.append("distanceFromAdjancent",meetingRoom.roomDim);
-//     console.log(meetingRoom.floorNo);
-    console.log(datas);
+for(const x = 0; x<imageData.length; x++) {
+  datas.append('furnitureImg', imageData.furnitureImg[x])
+  datas.append('ceilingImg', imageData.ceilingImg[x])
+}
+console.log(imageData.furnitureImg);
+
+console.log(datas);
+
+    // datas.append("furnitureImg",imageData.furnitureImg);
+    // datas.append("ceilingImg", imageData.ceilingImg);
+    // console.log(datas);
 
 const meetingRoomOptions={
   Headers:{"content-type":"multipart/form-data"}
@@ -170,7 +179,7 @@ axios.post(url,finalmeetingRoom,datas,meetingRoomOptions).then((res)=>{
   const circularContent = (e) => {
     return (
       <>
-        <div className="hangDist mt-3">
+        <div className="radius mt-3">
           <Grid item xs={12}>
             <TextField
               fullWidth
@@ -190,8 +199,8 @@ axios.post(url,finalmeetingRoom,datas,meetingRoomOptions).then((res)=>{
               id="outlined-basic"
               label="Hanging Distance"
               onChange={(e) => valueChange(e)}
-              name="hanging_distance"
-              value={hanDist}
+              name="hangDist"
+              value={hangDist}
             />
           </Grid>
         </div>
@@ -390,25 +399,7 @@ axios.post(url,finalmeetingRoom,datas,meetingRoomOptions).then((res)=>{
                       {status === 1 && yesContent()}
                     </div>
                   </>
-                  {/* <Grid item xs={12}>
-                    <div className="pendant_Light">
-                      <h6>Pendant Light Type</h6>
-                      <input
-                        type="radio"
-                        id="yes"
-                        name="Condition"
-                        value="Linear"
-                      />
-                      <label htmlFor="yes">Linear</label>
-                      <input
-                        type="radio"
-                        id="No"
-                        name="Condition"
-                        value="Circular"
-                      />
-                      <label htmlFor="NO">Circular</label>
-                    </div>
-                  </Grid> */}
+
                 </Grid>
 
                 {/* For Pendent Light Distance*/}
@@ -418,8 +409,8 @@ axios.post(url,finalmeetingRoom,datas,meetingRoomOptions).then((res)=>{
                     id="outlined-basic"
                     label="Pendent Light Location Distance from two Adjascent wall"
                     onChange={(e) => valueChange(e)}
-                    name="penLigLoc"
-                    value={penLigLoc}
+                    name="penLigLocFromAdjWall"
+                    value={penLigLocFromAdjWall}
                   />
                 </Grid>
                 {/* For Comment */}
